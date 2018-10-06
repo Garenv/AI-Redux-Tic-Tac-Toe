@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actions';
 
 const initialState = {
-    winnerValue: undefined
+    winnerValue: ''
 };
 
 const winnerReducer = (state = initialState, action) => {

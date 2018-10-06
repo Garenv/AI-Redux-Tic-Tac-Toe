@@ -7,7 +7,7 @@ class Board extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            winner: '',
+            winner: undefined,
         };
 
         this.gameState = {
@@ -38,8 +38,10 @@ class Board extends Component {
 
         if(result === 'X') {
             this.gameState.gameEnded = true;
+            let win = this.props.winnerValueRedux(this.state.winner);
+            console.log("win value ==> " + win);
             this.setState({
-                winner: 'X',
+                winner: win,
                 winnerLine: 'X wins'
             });
             console.log("X wins");

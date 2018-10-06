@@ -5,9 +5,9 @@ const initialValue = {
 };
 
 const turnReducer = (state = initialValue, action) => {
+    console.log("turnReducer ==> " + action.value);
     switch (action.type) {
         case actionTypes.TURN_VALUE:
-            console.log("turnReducer ==> " + action.value);
             return {
                 ...state,
                 turnValue: action.value
