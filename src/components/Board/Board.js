@@ -36,16 +36,23 @@ class Board extends Component {
 
         var result = this.checkWinner();
 
-        if(result === 'X') {
-            this.gameState.gameEnded = true;
-            this.props.winnerValueRedux("X wins!");
-        } else if(result === 'O') {
-            this.gameState.gameEnded = true;
-            this.props.winnerValueRedux("O wins!");
-        } else if(result === "draw") {
-            this.gameState.gameEnded = true;
-            this.props.winnerValueRedux("Match is a draw");
+        switch(result) {
+            case 'X':
+                this.gameState.gameEnded = true;
+                this.props.winnerValueRedux("X wins!");
+                break;
+            case 'O':
+                this.gameState.gameEnded = true;
+                this.props.winnerValueRedux("O wins!");
+                break;
+            case 'draw':
+                this.gameState.gameEnded = true;
+                this.props.winnerValueRedux("Match is a draw");
+                break;
+            default:
+                break;
         }
+
         console.log("result ==> " + result);
 
         if(this.gameState.turn === 'O' && !this.gameState.gameEnded) {
