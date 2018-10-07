@@ -7,15 +7,13 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
-import turnValueReducer from './store/reducers/turnReducer';
 import winnerValueReducer from './store/reducers/winnerReducer';
 
 const rootReducer = combineReducers({
-    turnValue: turnValueReducer,
     winnerValue: winnerValueReducer
 });
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer);
 
 ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById('root'));
 
