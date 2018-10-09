@@ -8,9 +8,11 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
 import winnerValueReducer from './store/reducers/winnerReducer';
+import gameLockedValueReducer from './store/reducers/gameLockedReducer';
 
 const rootReducer = combineReducers({
-    winnerValue: winnerValueReducer
+    winnerValue: winnerValueReducer,
+    gameLockedValue: gameLockedValueReducer
 });
 
 const store = createStore(rootReducer);

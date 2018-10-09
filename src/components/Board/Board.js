@@ -7,12 +7,7 @@ class Board extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            winner: undefined
-        };
-
-        this.gameState = {
             turn: 'X',
-            gameLocked: false,
             gameEnded: false,
             board: Array(9).fill(''),
             totalMoves: 0
@@ -20,49 +15,48 @@ class Board extends Component {
     }
 
     clicked(box) {
-        if(this.gameState.gameEnded || this.gameState.gameLocked) {
+        if(this.state.gameEnded || this.props.gameLockedValue) {
             return;
         }
 
-        if(this.gameState.board[box.dataset.square] === '') {
-            this.gameState.board[box.dataset.square] = this.gameState.turn;
-            box.innerText = this.gameState.turn;
+        if(this.state.board[box.dataset.square] === '') {
+            this.setState({turn: this.state.board[box.dataset.square]});
+            box.innerText = this.state.turn;
 
-            this.gameState.turn = this.gameState.turn === 'X' ? 'O' : 'X';
-            this.gameState.totalMoves++;
+            this.state.turn = this.state.turn === 'X' ? 'O' : 'X';
+            this.state.totalMoves++;
         }
 
-        console.log("this.gameState.totalMoves ==> " + this.gameState.totalMoves);
+        console.log("this.state.totalMoves ==> " + this.state.totalMoves);
 
         var result = this.checkWinner();
 
         switch(result) {
             case 'X':
-                this.gameState.gameEnded = true;
+                this.state.gameEnded = true;
                 this.props.winnerValueRedux("X wins!");
                 break;
             case 'O':
-                this.gameState.gameEnded = true;
+                this.state.gameEnded = true;
                 this.props.winnerValueRedux("O wins!");
                 break;
             case 'draw':
-                this.gameState.gameEnded = true;
+                this.state.gameEnded = true;
                 this.props.winnerValueRedux("Match is a draw");
                 break;
             default:
                 break;
         }
 
-        console.log("result ==> " + result);
-
-        if(this.gameState.turn === 'O' && !this.gameState.gameEnded) {
-            this.gameState.gameLocked = true;
+        if(this.state.turn === 'O' && !this.state.gameEnded) {
+           this.props.gameLockedValueRedux(true);
 
             setTimeout(() => {
                 do {
                     var random = Math.floor(Math.random() * 9);
-                } while(this.gameState.board[random] !== '');
-                this.gameState.gameLocked = false;
+                } while(this.state.board[random] !== '');
+
+                this.props.gameLockedValueRedux(false);
                 console.log("reached here");
                 this.clicked(document.querySelectorAll('.square')[random]);
             }, 3000)
@@ -71,7 +65,7 @@ class Board extends Component {
 
     checkWinner() {
         var moves = [[0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6], [0, 1, 2], [3, 4, 5], [6, 7, 8]];
-        var board = this.gameState.board;
+        var board = this.state.board;
 
         for(let i = 0; i < moves.length; i++) {
             if(board[moves[i][0]] === board[moves[i][1]] && board[moves[i][1]] === board[moves[i][2]]) {
@@ -79,8 +73,8 @@ class Board extends Component {
             }
         }
 
-        console.log(this.gameState.totalMoves);
-        if(this.gameState.totalMoves === 9) {
+        console.log(this.state.totalMoves);
+        if(this.state.totalMoves === 9) {
             return "draw";
         }
     }
@@ -88,7 +82,7 @@ class Board extends Component {
     render() {
         return(
             <div id="game">
-                <div id="state">{this.props.winnerValue}</div>
+                <div id="state">{this.props.winnerValue} {this.props.gameLockedValue}</div>
 
                 <div id="head">
                     Tic Tac Toe
@@ -112,13 +106,15 @@ class Board extends Component {
 
 const mapStateToProps = state => {
     return {
-        winnerValue: state.winnerValue.winnerValue
+        winnerValue: state.winnerValue.winnerValue,
+        gameLockedValue: state.gameLockedValue.gameLockedValue
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        winnerValueRedux: (value) => dispatch({type: actionTypes.WINNER_VALUE, value})
+        winnerValueRedux: (value) => dispatch({type: actionTypes.WINNER_VALUE, value}),
+        gameLockedValueRedux: (value) => dispatch({type: actionTypes.GAME_LOCKED_VALUE, value})
     };
 }
 
