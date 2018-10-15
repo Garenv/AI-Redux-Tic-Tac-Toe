@@ -46,6 +46,8 @@ class Board extends Component {
 
             this.props.totalMovesValueRedux(this.props.totalMovesValue + 1);
 
+            console.log();
+
             // this.state.totalMoves++;
         }
 
@@ -99,8 +101,8 @@ class Board extends Component {
             }
         }
 
-        // console.log(this.state.totalMoves);
-        if(this.state.totalMoves === 9) {
+        console.log("this.props.totalMovesValue ==> " + this.props.totalMovesValue);
+        if(this.props.totalMovesValueRedux(9)) {
             return "draw";
         }
     }
