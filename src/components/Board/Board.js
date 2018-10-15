@@ -16,7 +16,7 @@ class Board extends Component {
     }
 
     clicked(box) {
-        if(this.state.gameEnded || this.state.locked) { // this.props.gameLockedValue
+        if(this.props.gameEndedValue || this.state.locked) { // this.props.gameLockedValue
             return;
         }
 
@@ -52,19 +52,16 @@ class Board extends Component {
             case 'X':
                 // this.state.gameEnded = true;
                 this.props.gameEndedValueRedux(true);
-                console.log("this.props.gameEndedValueRedux(true); ==> " + this.props.gameEndedValueRedux(true));
                 this.props.winnerValueRedux("X wins!");
                 break;
             case 'O':
                 // this.state.gameEnded = true;
                 this.props.gameEndedValueRedux(true);
-                console.log("this.props.gameEndedValueRedux(true); ==> " + this.props.gameEndedValueRedux(true));
                 this.props.winnerValueRedux("O wins!");
                 break;
             case 'draw':
                 // this.state.gameEnded = true;
                 this.props.gameEndedValueRedux(true);
-                console.log("this.props.gameEndedValueRedux(true); ==> " + this.props.gameEndedValueRedux(true));
                 this.props.winnerValueRedux("Match is a draw");
                 break;
             default:
@@ -106,7 +103,7 @@ class Board extends Component {
     render() {
         return(
             <div id="game">
-                <div id="state">{this.props.winnerValue} {this.props.gameLockedValue}</div>
+                <div id="state">{this.props.winnerValue}</div>
 
                 <div id="head">
                     Tic Tac Toe
