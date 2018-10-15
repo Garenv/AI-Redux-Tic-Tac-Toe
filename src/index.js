@@ -10,11 +10,13 @@ import { createStore, combineReducers } from 'redux';
 import winnerValueReducer from './store/reducers/winnerReducer';
 import gameLockedValueReducer from './store/reducers/gameLockedReducer';
 import gameEndedReducer from './store/reducers/gameEndedReducer';
+import totalMovesReducer from './store/reducers/totalMovesReducer';
 
 const rootReducer = combineReducers({
     winnerValue: winnerValueReducer,
     gameLockedValue: gameLockedValueReducer,
-    gameEndedValue: gameEndedReducer
+    gameEndedValue: gameEndedReducer,
+    totalMovesValue: totalMovesReducer
 });
 
 const store = createStore(rootReducer);
