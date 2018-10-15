@@ -8,19 +8,36 @@ class Board extends Component {
         super(props);
         this.state = {
             turn: 'X',
-            gameEnded: false,
+            // gameEnded: false,
             board: Array(9).fill(''),
-            totalMoves: 0
+            totalMoves: 0,
+            locked: false
         }
     }
 
     clicked(box) {
-        if(this.state.gameEnded || this.props.gameLockedValue) {
+        if(this.state.gameEnded || this.state.locked) { // this.props.gameLockedValue
             return;
         }
 
         if(this.state.board[box.dataset.square] === '') {
-            this.setState({turn: this.state.board[box.dataset.square]});
+            // this.setState({turn: this.state.board[box.dataset.square]});
+            // box.innerText = this.state.turn;
+            //
+            // // this.setState(state => {
+            // //    box.innerHTML = state.turn;
+            // //    return {turn: state.board[box.dataset.square]}
+            // // });
+            // //
+            // // this.setState(prevState => ({
+            // //    turn: prevState.turn === 'X' ? 'O' : 'X',
+            // //    totalMoves: prevState.totalMoves + 1
+            // // }));
+            //
+            // this.state.turn = this.state.turn === 'X' ? 'O' : 'X';
+            // this.state.totalMoves++;
+
+            this.state.board[box.dataset.square] = this.state.turn;
             box.innerText = this.state.turn;
 
             this.state.turn = this.state.turn === 'X' ? 'O' : 'X';
@@ -33,15 +50,21 @@ class Board extends Component {
 
         switch(result) {
             case 'X':
-                this.state.gameEnded = true;
+                // this.state.gameEnded = true;
+                this.props.gameEndedValueRedux(true);
+                console.log("this.props.gameEndedValueRedux(true); ==> " + this.props.gameEndedValueRedux(true));
                 this.props.winnerValueRedux("X wins!");
                 break;
             case 'O':
-                this.state.gameEnded = true;
+                // this.state.gameEnded = true;
+                this.props.gameEndedValueRedux(true);
+                console.log("this.props.gameEndedValueRedux(true); ==> " + this.props.gameEndedValueRedux(true));
                 this.props.winnerValueRedux("O wins!");
                 break;
             case 'draw':
-                this.state.gameEnded = true;
+                // this.state.gameEnded = true;
+                this.props.gameEndedValueRedux(true);
+                console.log("this.props.gameEndedValueRedux(true); ==> " + this.props.gameEndedValueRedux(true));
                 this.props.winnerValueRedux("Match is a draw");
                 break;
             default:
@@ -49,17 +72,18 @@ class Board extends Component {
         }
 
         if(this.state.turn === 'O' && !this.state.gameEnded) {
-           this.props.gameLockedValueRedux(true);
-
+           // this.props.gameLockedValueRedux(true);
+           this.state.locked = true;
             setTimeout(() => {
                 do {
                     var random = Math.floor(Math.random() * 9);
                 } while(this.state.board[random] !== '');
 
-                this.props.gameLockedValueRedux(false);
+                // this.props.gameLockedValueRedux(false);
+                this.state.locked = false;
                 console.log("reached here");
                 this.clicked(document.querySelectorAll('.square')[random]);
-            }, 3000)
+            }, 1000)
         }
     }
 
@@ -107,14 +131,16 @@ class Board extends Component {
 const mapStateToProps = state => {
     return {
         winnerValue: state.winnerValue.winnerValue,
-        gameLockedValue: state.gameLockedValue.gameLockedValue
+        gameLockedValue: state.gameLockedValue.gameLockedValue,
+        gameEndedValue: state.gameEndedValue.gameEndedValue
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         winnerValueRedux: (value) => dispatch({type: actionTypes.WINNER_VALUE, value}),
-        gameLockedValueRedux: (value) => dispatch({type: actionTypes.GAME_LOCKED_VALUE, value})
+        gameLockedValueRedux: (value) => dispatch({type: actionTypes.GAME_LOCKED_VALUE, value}),
+        gameEndedValueRedux: (value) => dispatch({type: actionTypes.GAME_ENDED_VALUE, value})
     };
 }
 

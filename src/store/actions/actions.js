@@ -1,2 +1,3 @@
 export const WINNER_VALUE = "WINNER_VALUE";
 export const GAME_LOCKED_VALUE = "GAME_LOCKED_VALUE";
+export const GAME_ENDED_VALUE = "GAME_ENDED_VALUE";
