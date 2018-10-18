@@ -22,11 +22,8 @@ const checkWinner = state => {
     let board = state.board;
 
     for (let i = 0; i < moves.length; i++) {
-        if (
-            board[moves[i][0]] === board[moves[i][1]] &&
-            board[moves[i][1]] === board[moves[i][2]]
-        ) {
-            return board[moves[i][0]];
+        if (board[moves[i][0]] === board[moves[i][1]] && board[moves[i][1]] === board[moves[i][2]]) {
+            return board[moves[i][0]]; // return the winner
         }
     }
 
@@ -46,6 +43,9 @@ const boardReducer = (state = initialState, action) => {
         case actionTypes.AI_CLICK_BOARD:
             let newState = {};
 
+            newState.turn = state.turn === 'X' ? 'O' : 'X';
+            newState.totalMoves = state.totalMoves + 1;
+
             if(state.board[action.value] !== "") {
                 // do nothing
                 return state;
@@ -59,36 +59,32 @@ const boardReducer = (state = initialState, action) => {
             });
 
             // state.board[action.value] = state.turn
+            console.dir(state.board); // displays Array(9)
 
-        newState.turn = state.turn === 'X' ? 'O' : 'X';
-        newState.totalMoves = state.totalMoves + 1;
+            let result = checkWinner({...state, ...newState});
 
-        console.dir(state.board);
+            switch(result) {
+                case "X":
+                case "O":
+                    newState.gameEnded = true;
+                    newState.winner = `${result} wins!`;
+                    break;
+                case "draw":
+                    newState.gameEnded = true;
+                    newState.winner = "Match is a draw";
+                    break;
+                default:
+                    break;
+            }
 
-        let result = checkWinner({...state, ...newState});
+            // If this is a non-AI action, lock the board
+            newState.locked = action.type === actionTypes.CLICK_BOARD;
 
-        switch(result) {
-            case "X":
-            case "O":
-                newState.gameEnded = true;
-                newState.winner = `${result} wins!`;
-                break;
-            case "draw":
-                newState.gameEnded = true;
-                newState.winner = "Match is a draw";
-                break;
+            console.log("Setting new state", newState);
+            return {...state, ...newState};
+
             default:
-                break;
-        }
-
-        // If this is a non-AI action, lock the board
-        newState.locked = action.type === actionTypes.CLICK_BOARD;
-
-        console.log("Setting new state", newState);
-        return {...state, ...newState};
-
-        default:
-            return state;
+                return state;
     }
 };
 

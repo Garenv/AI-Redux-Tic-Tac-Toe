@@ -3,7 +3,6 @@ import './Board.css';
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actions';
 
-
 class Board extends Component {
     constructor(props) {
         super(props);
@@ -12,16 +11,12 @@ class Board extends Component {
         //     board: Array(9).fill(''),
         //     locked: false
         // }
-
         this.clicked = this.clicked.bind(this);
     }
-
-
 
     clicked(e) {
         this.props.clickBoard(e.target.dataset.square);
     }
-
 
     render() {
         console.log("props", this.props);
@@ -29,12 +24,9 @@ class Board extends Component {
             <div id="game">
                 <div id="state">{this.props.winner}</div>
 
-                <div id="head">
-                    Tic Tac Toe
-                </div>
+                <div id="head">Tic Tac Toe</div>
 
                 <div id="board" onClick={this.clicked}>
-
                     {
                         this.props.board.map((val, sq) => (
                             <div className="square" data-square={sq} key={sq}>
@@ -42,9 +34,8 @@ class Board extends Component {
                             </div>
                         ))
                     }
-                    </div>
                 </div>
-
+            </div>
         );
     }
 }

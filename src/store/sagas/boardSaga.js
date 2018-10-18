@@ -20,7 +20,6 @@ function* aiAction(action) {
     } while(board.board[random] !== "");
 
     yield put({ type: AI_CLICK_BOARD, value: random });
-
 }
 
 /*
