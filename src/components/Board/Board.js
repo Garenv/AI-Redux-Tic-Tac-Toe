@@ -44,9 +44,7 @@ class Board extends Component {
             //     totalMoves: prevState.totalMoves + 1
             // }));
 
-            this.props.totalMovesValueRedux(this.props.totalMovesValue + 1);
-
-            console.log();
+            this.props.totalMovesValueRedux(this.props.totalMovesValue);
 
             // this.state.totalMoves++;
         }

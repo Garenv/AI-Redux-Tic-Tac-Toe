@@ -10,7 +10,7 @@ const totalMovesReducer = (state = initialState, action) => {
             console.log("[totalMovesReducer] ==> " + action.value);
             return {
                 ...state,
-                totalMovesValue: state.totalMovesValue
+                totalMovesValue: state.totalMovesValue + 1
             };
 
         default:
