@@ -5,23 +5,24 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
-import winnerValueReducer from './store/reducers/winnerReducer';
-import gameLockedValueReducer from './store/reducers/gameLockedReducer';
-import gameEndedReducer from './store/reducers/gameEndedReducer';
-import totalMovesReducer from './store/reducers/totalMovesReducer';
-import turnValueReducer from './store/reducers/turnValueReducer';
+// import winnerValueReducer from './store/reducers/winnerReducer';
+// import gameLockedValueReducer from './store/reducers/gameLockedReducer';
+// import gameEndedReducer from './store/reducers/gameEndedReducer';
+// import totalMovesReducer from './store/reducers/totalMovesReducer';
+// import turnValueReducer from './store/reducers/turnValueReducer';
+
+import boardReducer from './store/reducers/boardReducer';
+import mySaga from './store/sagas/boardSaga';
 
 const rootReducer = combineReducers({
-    winnerValue: winnerValueReducer,
-    gameLockedValue: gameLockedValueReducer,
-    gameEndedValue: gameEndedReducer,
-    totalMovesValue: totalMovesReducer,
-    turnValue: turnValueReducer
+    board: boardReducer
 });
 
-const store = createStore(rootReducer);
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
 ReactDOM.render(<Provider store={store}><App/></Provider>, document.getElementById('root'));
 
