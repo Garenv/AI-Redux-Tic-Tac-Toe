@@ -33,11 +33,6 @@
     flex-direction: column;
 }
 
-#head {
-    font-size: 25px;
-    padding: 15px;
-}
-
 .square:nth-child(3n+1) {
     border-left: 0;
 }
@@ -52,5 +47,29 @@
 
 .square:nth-child(7), .square:nth-child(8), .square:nth-child(9) {
     border-bottom: 0;
+}
+
+#head {
+    font-size: 25px;
+    padding: 15px;
+    animation-name: moveInLeft;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+
+    80% {
+        transform: translateX(1rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 

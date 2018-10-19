@@ -2,6 +2,7 @@ import {call, put, takeEvery, select} from 'redux-saga/effects';
 
 import { AI_CLICK_BOARD } from "../actions/actions";
 
+
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions

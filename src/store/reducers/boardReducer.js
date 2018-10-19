@@ -43,9 +43,6 @@ const boardReducer = (state = initialState, action) => {
         case actionTypes.AI_CLICK_BOARD:
             let newState = {};
 
-            newState.turn = state.turn === 'X' ? 'O' : 'X';
-            newState.totalMoves = state.totalMoves + 1;
-
             if(state.board[action.value] !== "") {
                 // do nothing
                 return state;
@@ -59,7 +56,10 @@ const boardReducer = (state = initialState, action) => {
             });
 
             // state.board[action.value] = state.turn
-            console.dir(state.board); // displays Array(9)
+            console.dir(state.board); // display Array(9)
+
+            newState.turn = state.turn === 'X' ? 'O' : 'X';
+            newState.totalMoves = state.totalMoves + 1;
 
             let result = checkWinner({...state, ...newState});
 
