@@ -1,3 +1,5 @@
-Creating a Tic-Tac-Toe game using React.js.  Extra features soon to come!  
+A Tic-Tac-Toe game using React.js.  All the states throughout the application are handled with redux/redux-saga.  
+
+
 
 
