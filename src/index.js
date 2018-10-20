@@ -8,12 +8,6 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-// import winnerValueReducer from './store/reducers/winnerReducer';
-// import gameLockedValueReducer from './store/reducers/gameLockedReducer';
-// import gameEndedReducer from './store/reducers/gameEndedReducer';
-// import totalMovesReducer from './store/reducers/totalMovesReducer';
-// import turnValueReducer from './store/reducers/turnValueReducer';
-
 import boardReducer from './store/reducers/boardReducer';
 import mySaga from './store/sagas/boardSaga';
 
