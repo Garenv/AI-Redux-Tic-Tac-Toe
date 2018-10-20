@@ -4,11 +4,19 @@
     box-sizing: border-box;
 }
 
+html {
+    background-image: linear-gradient(to right bottom, rgba(0, 14, 255, 83), rgba(220, 255, 34, 47));
+    height: 100vh;
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+}
+
 #board {
     display: flex;
     width: 300px;
     flex-wrap: wrap;
 }
+
+
 
 .square {
     width: 100px;
@@ -26,11 +34,16 @@
     background: #eee;
 }
 
+h1 {
+    margin-bottom: 5%;
+}
+
 #game {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 5%;
 }
 
 .square:nth-child(3n+1) {
@@ -51,9 +64,23 @@
 
 #head {
     font-size: 25px;
+    font-family: "DIN Alternate";
     padding: 15px;
     animation-name: moveInLeft;
     animation-duration: 2s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes blinker {
+    50% {opacity: 0;}
+    from {color: green;}
+    to {color: green;}
+}
+
+#winner {
+    font-size: 25px;
+    animation: blinker 1.2s linear infinite;
+    animation-duration: 1s;
     animation-timing-function: ease-out;
 }
 
@@ -72,4 +99,22 @@
         transform: translateX(0);
     }
 }
+
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+
+    80% {
+        transform: translateX(1rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
 

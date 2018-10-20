@@ -22,9 +22,9 @@ class Board extends Component {
         console.log("props", this.props);
         return(
             <div id="game">
-                <div id="state">{this.props.winner}</div>
-
-                <div id="head">Tic Tac Toe</div>
+                <div id="head">
+                    <h1>Redux Tic Tac Toe</h1>
+                </div>
 
                 <div id="board" onClick={this.clicked}>
                     {
@@ -34,6 +34,12 @@ class Board extends Component {
                             </div>
                         ))
                     }
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <div id="winner">
+                    <h1>{this.props.winner}</h1>
                 </div>
             </div>
         );
